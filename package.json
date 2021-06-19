@@ -1,0 +1,34 @@
+{
+  "name": "snackitude",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/madeleinemjk/snackitude-madeleine-kluth-wd-bstn-capstone.git"
+  },
+  "keywords": [
+    "js",
+    "node",
+    "react",
+    "express",
+    "db",
+    "mySQL",
+    "sequelize",
+    "api",
+    "routes",
+    "models",
+    "config",
+    "passport",
+    "sockets"
+  ],
+  "author": "Madeleine Kluth",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/madeleinemjk/snackitude-madeleine-kluth-wd-bstn-capstone/issues"
+  },
+  "homepage": "https://github.com/madeleinemjk/snackitude-madeleine-kluth-wd-bstn-capstone#readme"
+}
