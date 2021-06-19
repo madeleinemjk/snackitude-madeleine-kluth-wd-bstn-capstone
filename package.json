@@ -30,5 +30,9 @@
   "bugs": {
     "url": "https://github.com/madeleinemjk/snackitude-madeleine-kluth-wd-bstn-capstone/issues"
   },
-  "homepage": "https://github.com/madeleinemjk/snackitude-madeleine-kluth-wd-bstn-capstone#readme"
+  "homepage": "https://github.com/madeleinemjk/snackitude-madeleine-kluth-wd-bstn-capstone#readme",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "express": "^4.17.1"
+  }
 }
