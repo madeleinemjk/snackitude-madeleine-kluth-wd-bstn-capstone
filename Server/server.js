@@ -8,7 +8,7 @@ const http = require('http');
 const server = http.createServer(app);
 const io = require('socket.io')(server, {
     cors: {
-        origin: "http://localhost:2469",
+        origin: "http://localhost:3000",
         methods: ["GET", "POST"]
     }
 });
@@ -23,7 +23,7 @@ app.use((req, _, next) => {
 });
 
 require('dotenv').config();
-const PORT = process.env.PORT || 2468;
+const PORT = process.env.PORT || 8081;
 
 app.use(express.json());
 app.use(cors());
