@@ -24,3 +24,4 @@ Personalisation e.g. avatar, snack suggestions, saved location radius
 Report complaints
 Live chat and option to add delivery directions
 Better authorisation (so details are anonymous until a request is accepted
+Public transport options
