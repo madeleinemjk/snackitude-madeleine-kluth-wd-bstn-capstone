@@ -25,3 +25,4 @@ Report complaints.
 Live chat and option to add delivery directions.  
 Better authorisation (so details are anonymous until a request is accepted.  
 Public transport options.  
+Private Route for paths once logged in.  
