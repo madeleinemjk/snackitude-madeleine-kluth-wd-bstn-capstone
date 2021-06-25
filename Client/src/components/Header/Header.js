@@ -4,16 +4,24 @@ import './Header.scss';
 import logo from '../../assets/logos/Snackitude_Free_Sample_By_Wix.jpeg';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
-import Logout from '../Logout/Logout';
 
 export default class Header extends Component {
+    constructor(props) {
+        super(props);
+    }
+
+    logout = () => {
+        this.props.logout();
+    };
+
+    r
     render() {
         return (
             <header className="header">
-                <Link to="/home" className="logo">
+                <Link to="/" className="logo">
                     <img src={logo} alt="Snackitude logo" />
                 </Link>
-                <Link to="/logout" className="logout-link"><Logout /></Link>
+                <button onClick={() => this.logout()}>Logout</button>
                 <Login />
                 <Register />
             </header>

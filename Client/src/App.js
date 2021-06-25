@@ -1,36 +1,98 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import Header from './components/Header/Header';
 import Login from './components/Login/Login';
-import Register from './components/Register/Register';
-import MakeRequest from './components/MakeRequest/MakeRequest';
-import ViewRequests from './components/ViewRequests/ViewRequests';
-import AcceptRequests from './components/AcceptRequests/AcceptRequests';
-import Ratings from './components/Ratings/Ratings';
+import SnackRequests from './components/SnackRequests/SnackRequests';
+import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
-import Logout from './components/Logout/Logout';
+import { ToastContainer } from 'react-toastify';
+import axios from 'axios';
+import {getToken, clearToken, isLoggedIn} from "./utils/auth";
+import SnackRequest from "./components/SnackRequest/SnackRequest";
+import Reviews from "./components/Reviews/Reviews";
 
+const API_URL = process.env.REACT_APP_BACKEND_URL;
 
-export default class App extends Component {
-    render() {
-        return (
-            <>
-                <div className="container">
-                    <BrowserRouter>
-                        <Header />
-                        <Switch>
-                            <Route path='/login' component={Login} />
-                            <Route path='/register' component={Register} />
-                            <Route path='/snackRequest' exact component={MakeRequest} />
-                            <Route path='/snackRequests/search' exact component={ViewRequests} />
-                            <Route path='/snackRequests/:id' render={routeProps => (<AcceptRequests {...routeProps} />)} />
-                            <Route path='user/:id/review' render={routeProps => (<Ratings {...routeProps} />)} />
-                            <Route path='/logout' component={Logout} />
-                        </Switch>
-                    </BrowserRouter>
-                </div>
-                <Footer />
-            </>
-        )
+const getUserRoute = () => {
+  return `${API_URL}/users/me`;
+};
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      user: null,
+      token: null,
+      loggedIn: isLoggedIn()
     }
+  }
+
+  componentDidMount() {
+    this.checkLogin();
+  }
+
+  checkLogin = () => {
+    const token = getToken();
+
+    if (!token) {
+      this.notLoggedIn();
+    } else {
+      // GET on /users/me
+      axios.get(getUserRoute(), {
+        headers: {
+          'Authorization': token
+        }
+      }).then(user => {
+        this.setState({
+          user: user,
+          token: token,
+          loggedIn: true
+        })
+      }).catch(error => {
+        console.error(error);
+        this.notLoggedIn();
+      });
+    }
+  }
+
+  handleLogin = () => {
+    console.log('here');
+    this.checkLogin();
+  };
+
+  notLoggedIn = () => {
+    clearToken();
+
+    this.setState({
+      user: null,
+      token: null,
+      loggedIn: false
+    })
+  };
+
+  handleLogout = () => {
+    clearToken();
+    this.checkLogin();
+  };
+
+  render() {
+    return (<>
+          <div className="container">
+            <BrowserRouter>
+              <Header logout={() => this.handleLogout()} />
+              <Switch>
+                <Route path='/login' exact render={(routeProps) => <Login {...routeProps} handleLogin={() => this.handleLogin()} loggedIn={this.state.loggedIn} />} />
+                <Route path='/' exact render={(routeProps) => <SnackRequests {...routeProps} loggedIn={this.state.loggedIn} />} />
+                <Route path='/user/:id' exact render={(routeProps) => <Reviews {...routeProps} loggedIn={this.state.loggedIn} />} />
+                <Route path='/:id' exact render={(routeProps) => <SnackRequest {...routeProps} loggedIn={this.state.loggedIn} />} />
+              </Switch>
+            </BrowserRouter>
+          </div>
+          <Footer />
+          <ToastContainer />
+        </>
+    )
+  };
 }
+
+export default App;

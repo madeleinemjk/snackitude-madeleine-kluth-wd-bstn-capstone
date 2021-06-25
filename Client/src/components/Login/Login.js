@@ -1,5 +1,13 @@
-import React, { Component } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { Component } from "react";
+import "./Login.scss";
+import axios from 'axios';
+import {setToken} from '../../utils/auth';
+
+const API_URL = process.env.REACT_APP_BACKEND_URL;
+
+const getLoginRoute = () => {
+    return `${API_URL}/users/signin`;
+};
 
 class Login extends Component {
     constructor(props) {
@@ -8,39 +16,59 @@ class Login extends Component {
         this.state = {
             username: null,
             password: null
-        };
+        }
+    }
+
+    componentDidMount() {
+        this.checkLogin();
+    }
+
+    componentDidUpdate() {
+        this.checkLogin();
+    }
+
+    checkLogin = () => {
+        if (this.props.loggedIn) {
+            this.props.history.push('/');
+        }
+    }
+
+    handleUsernameChange = (event) => {
+        this.setState({
+            username: event.target.value
+        });
     };
 
-    handleNameInput = (event) => {
-        event.preventDefault();
-        this.setState({username: event.target.value});
+    handlePasswordChange = (event) => {
+        this.setState({
+            password: event.target.value
+        })
     };
 
-    handlePasswordInput = (event) => {
+    submitForm = (event) => {
         event.preventDefault();
-        this.setState({password: event.target.value});
-    };
 
-    submit = (event) => {
-        event.preventDefault();
-        console.log(this.state);
+        axios.post(getLoginRoute(), {
+            username: this.state.username,
+            password: this.state.password
+        }).then(res => {
+            const token = res.data.token;
+            setToken(token);
+            this.props.handleLogin();
+        }).catch(e => {
+            // TODO: Toast notification
+            console.error('Invalid login, try again');
+        });
     };
 
     render() {
-        return(
-            <div className="login">
-                <label for="username">Username:</label>
-                <input type="text" id="username" placeholder="enter your name here" onChange={(event) => this.handleNameInput(event)} />
-                <br></br>
-                <label for="password">Password:</label>
-                <input type="password" id="password" placeholder="open sesame" onChange={(event) => this.handlePasswordInput(event)} />
-                <br></br>
-                <button onClick={this.submit} className="login__button">Happy snacking!</button>
-            </div>
-        )
+        return <div className="login">
+            <p>Login</p>
+            <input type="text" placeholder="Enter username" onChange={this.handleUsernameChange}></input>
+            <input type="text" placeholder="Enter password" onChange={this.handlePasswordChange}></input>
+            <button onClick={this.submitForm}>Submit</button>
+        </div>
     }
-
-
 }
 
 export default Login;
