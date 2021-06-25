@@ -28,6 +28,7 @@ db.messages = require('./message.model')(sequelize, Sequelize);
 
 // Add relationships
 db.snackRequests.Messages = db.snackRequests.hasMany(db.messages, { as: 'messages' });
+db.messages.User = db.messages.belongsTo(db.users, {as: 'sendingUser' });
 
 db.snackRequests.DeliveringUser = db.snackRequests.belongsTo(db.users, { as: 'deliveringUser' });
 db.snackRequests.RequestingUser = db.snackRequests.belongsTo(db.users, { as: 'requestingUser' });

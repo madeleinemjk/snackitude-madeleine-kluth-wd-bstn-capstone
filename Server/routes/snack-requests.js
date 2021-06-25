@@ -3,6 +3,7 @@ const router = express.Router();
 const db = require('../models');
 const SnackRequests = db.snackRequests;
 const Messages = db.messages;
+const User = db.users;
 const passport = require('passport');
 require('../config/passport')(passport);
 const {Client} = require("@googlemaps/google-maps-services-js");
@@ -11,9 +12,33 @@ const client = new Client({});
 const API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
 // Get all snack requests
-router.get('/', passport.authenticate('jwt', {session: false}), async (req, res) => {
+router.get('/delivering', passport.authenticate('jwt', {session: false}), async (req, res) => {
     try {
-        const snackRequests = await SnackRequests.findAll();
+        const userId = req?.user?.dataValues?.id;
+        const snackRequests = await SnackRequests.findAll({
+            where: {
+                deliveringUserId: userId
+            }
+        });
+
+        if (snackRequests?.length > 0) {
+            res.send(snackRequests);
+        } else {
+            res.status(204).send('No snack requests found');
+        }
+    } catch (e) {
+        res.status(500).send(e.message || `Unable to get snack requests`);
+    }
+});
+
+router.get('/requesting', passport.authenticate('jwt', {session: false}), async (req, res) => {
+    try {
+        const userId = req?.user?.dataValues?.id;
+        const snackRequests = await SnackRequests.findAll({
+            where: {
+                requestingUserId: userId
+            }
+        });
 
         if (snackRequests?.length > 0) {
             res.send(snackRequests);
@@ -104,9 +129,11 @@ router.post('/:snackRequestId/message', passport.authenticate('jwt', {session: f
             const created = await Messages.create({
                 message: message.message,
                 timestamp: new Date(), // Use current date + time here
-                snackRequestId: id
+                snackRequestId: id,
+                sendingUserId: userId
             });
 
+            req.io.sockets.emit('Update', {snackRequestId: id});
             res.status(201).send(created);
         } else {
             res.status(400).send(`Unable to parse request for new message for new user ID: ${userId} on snackRequestID: ${id}`);
@@ -129,6 +156,7 @@ router.post('/', passport.authenticate('jwt', {session: false}), async (req, res
                 latitude: snackRequest.latitude,
                 maxWaitTime: snackRequest.maxWaitTime,
                 budget: snackRequest.budget,
+                addressName: snackRequest.addressName,
                 requestingUserId: userId
             });
 
@@ -149,7 +177,21 @@ router.get('/:id', passport.authenticate('jwt', {session: false}), async (req, r
             include: [
                 {
                     model: Messages,
-                    as: 'messages'
+                    as: 'messages',
+                    include: [
+                        {
+                            model: User,
+                            as: 'sendingUser'
+                        }
+                    ]
+                },
+                {
+                    model: User,
+                    as: 'deliveringUser'
+                },
+                {
+                    model: User,
+                    as: 'requestingUser'
                 }
             ]
         });

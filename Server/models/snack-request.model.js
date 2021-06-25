@@ -9,6 +9,9 @@ module.exports = (sequelize, Sequelize) => {
         latitude: {
             type: Sequelize.FLOAT
         },
+        addressName: {
+            type: Sequelize.STRING
+        },
         maxWaitTime: {
             type: Sequelize.INTEGER
         },
