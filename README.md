@@ -5,11 +5,11 @@ Linking professionals working remotely or dealing with the transition back to of
 
 ## Problem
 
-Sometimes there is simply no chance to break from meetings to pop to the shop for a packet of crisps, so being able to request a snack from someone nearby already going and avoiding a minimum charge and outrageous delivery fee will save the day. Other people might live in a village where the nearest shop is a 10 minute drive away, and it is simply not economical to go all that way for a chocolate bar.  
+Sometimes there is simply no chance to break from meetings to pop to the shop for a packet of crisps, so being able to request a snack from someone nearby who is already going, avoiding a minimum charge and outrageous delivery fee will save the day. Other people might live in a village where the nearest shop is a 10 minute drive away, and it is simply not economical to go all that way for a chocolate bar.  
 
 ## User Profile
 
-Targeting the WfH demographic to save time, transport emissions, and wastage from impulse buying. Furthermore it could target elderly or people otherwise limited in their capacity to travel, and promote community.  
+Targeting the WfH demographic to save time, transport emissions, and wastage from impulse buying. Furthermore it could aid the sick, elderly or people otherwise limited in their capacity to travel, promoting community.  
 
 ### Tech Stack and APIs
 
