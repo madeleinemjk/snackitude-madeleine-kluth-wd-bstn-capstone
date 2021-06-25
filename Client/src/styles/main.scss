@@ -1,0 +1,25 @@
+@use '../styles/partials/breakpoints' as *;
+@use '../styles/partials/colors' as *;
+@use '../styles/partials/typography' as *;
+
+* {
+    box-sizing: inherit;
+    padding: 0;
+    margin: 0;
+    font-size: 16px;
+    font-family: 'B612';
+    background-color: $yellow-background;
+}
+
+.container {
+   @include desktop {
+       max-width: 1080px;
+       margin: 0 auto;
+   }
+
+   &__content {
+       @include desktop {
+           display: flex;
+       }
+   }
+}

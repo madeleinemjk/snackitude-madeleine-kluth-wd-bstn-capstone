@@ -1,0 +1,45 @@
+@use './breakpoints' as *;
+@use './colors' as *;
+
+@font-face {
+    font-family: 'B612';
+    src: url('../../assets/fonts/B612/B612-Regular.ttf') format('truetype');
+    color: $purple-main;
+}
+
+a {
+    color: $blue-violet;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+button {
+    color: $blue-violet;
+    border: 1px solid $yellow-select;
+    border-radius: 5px;
+    background: $conifer-main;
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    transition: 0.2s ease all;
+
+    &:hover {
+        background: $ceramic;
+        color: $green-success;
+    }
+}
+
+input[type="text"], input[type="number"] {
+    border-radius: 5px;
+    border: 1px solid $yellow-select;
+    padding: 0.75rem 1rem;
+}

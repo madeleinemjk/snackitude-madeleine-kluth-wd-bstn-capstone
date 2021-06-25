@@ -1,0 +1,33 @@
+@use '../../styles/partials/colors' as *;
+@use '../../styles/partials/breakpoints' as *;
+
+.header {
+    display: flex;
+    flex-direction: column;
+    padding: 3rem 0;
+    align-items: center;
+
+    @include tablet-and-desktop {
+        flex-direction: row;
+    }
+}
+
+.logo {
+    min-width: 240px;
+    max-width: 240px;
+
+    @include tablet-and-desktop {
+        min-width: 300px;
+        max-width: 300px;
+    }
+
+    img {
+        min-width: 240px;
+        max-width: 240px;
+
+        @include tablet-and-desktop {
+            min-width: 300px;
+            max-width: 300px;
+        }
+    }
+}
