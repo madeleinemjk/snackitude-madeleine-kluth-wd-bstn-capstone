@@ -18,7 +18,9 @@
   },
   "homepage": "https://github.com/madeleinemjk/snackitude-madeleine-kluth-wd-bstn-capstone#readme",
   "dependencies": {
+    "@googlemaps/google-maps-services-js": "^3.1.16",
     "bcrypt": "^5.0.1",
+    "bcrypt-nodejs": "0.0.3",
     "config": "^3.3.6",
     "cors": "^2.8.5",
     "express": "^4.17.1",
