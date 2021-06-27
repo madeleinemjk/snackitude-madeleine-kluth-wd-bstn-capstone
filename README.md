@@ -27,6 +27,7 @@ Better authorisation - so details are anonymous until a request is accepted.
 Public transport options.  
 Private Route component for paths once logged in.  
 Set radius by time option as well as distance.  
+Option to change from radius to make deliveries only on a specific route.  
 Specific supermarket option for rogue snack options e.g. oat crunchies from sains and waitrose.  
 Add store stock checker.  
 
