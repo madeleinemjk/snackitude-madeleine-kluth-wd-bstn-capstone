@@ -19,7 +19,7 @@ Google Maps APIs: Places and Distance Matrix
 
 ### Further Development
 
-Payment functionality - Stripe, PayPal - as MVP will use cash payments, but using a payment platform will allow implementation of a “transnacktion” fee.   
+Payment functionality - Stripe, PayPal - as MVP will use cash payments, but using a payment platform will allow easier implementation of the “transnacktion” fee.   
 Personalisation e.g. avatar, snack suggestions, saved location radius.  
 Report complaints.  
 Live chat and option to add delivery directions.  
@@ -27,7 +27,6 @@ Better authorisation - so details are anonymous until a request is accepted.
 Public transport options.  
 Private Route component for paths once logged in.  
 Set radius by time option as well as distance.  
-Option to change from radius to make deliveries only on a specific route.  
+Option to change from filtering by radius to by along a specific route.  
 Specific supermarket option for rogue snack options e.g. oat crunchies from sains and waitrose.  
 Add store stock checker.  
-
