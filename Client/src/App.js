@@ -77,19 +77,18 @@ class App extends React.Component {
 
   render() {
     return (<>
-          <div className="container">
-            <BrowserRouter>
-              <Header logout={() => this.handleLogout()} />
-              <Switch>
-                <Route path='/login' exact render={(routeProps) => <Login {...routeProps} handleLogin={() => this.handleLogin()} loggedIn={this.state.loggedIn} />} />
-                <Route path='/' exact render={(routeProps) => <SnackRequests {...routeProps} loggedIn={this.state.loggedIn} />} />
-                <Route path='/user/:id' exact render={(routeProps) => <Reviews {...routeProps} loggedIn={this.state.loggedIn} />} />
-                <Route path='/:id' exact render={(routeProps) => <SnackRequest {...routeProps} loggedIn={this.state.loggedIn} />} />
-              </Switch>
-            </BrowserRouter>
-          </div>
-          <Footer />
-          <ToastContainer />
+          <BrowserRouter>
+            <div className="container">
+                <Header logout={() => this.handleLogout()} />
+                <Switch>
+                  <Route path='/login' exact render={(routeProps) => <Login {...routeProps} handleLogin={() => this.handleLogin()} loggedIn={this.state.loggedIn} />} />
+                  <Route path='/' exact render={(routeProps) => <SnackRequests {...routeProps} loggedIn={this.state.loggedIn} />} />
+                  <Route path='/user/:id' exact render={(routeProps) => <Reviews {...routeProps} loggedIn={this.state.loggedIn} />} />
+                  <Route path='/:id' exact render={(routeProps) => <SnackRequest {...routeProps} loggedIn={this.state.loggedIn} />} />
+                </Switch>
+                <Footer />
+            </div>
+          </BrowserRouter>
         </>
     )
   };

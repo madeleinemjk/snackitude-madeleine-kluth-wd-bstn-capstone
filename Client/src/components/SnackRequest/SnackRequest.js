@@ -103,7 +103,7 @@ class SnackRequest extends Component {
                 <Link to={`/user/${this.state.snackRequest?.deliveringUserId}`}>Review</Link>
             </p>
             <p>Requested By: {this.state.snackRequest?.requestingUser?.firstName} -
-                <Link to={`/user/${this.state.snackRequest?.requestingUserId}`}>Review</Link>
+            <Link to={`/user/${this.state.snackRequest?.requestingUserId}`}>Review</Link>
             </p>
             <h2>Messages</h2>
             {this.state.snackRequest?.messages?.map(message => {

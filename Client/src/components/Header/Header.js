@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './Header.scss';
-import logo from '../../assets/logos/Snackitude_Free_Sample_By_Wix.jpeg';
+import logo from '../../assets/logos/logo_screenshot_wix.png';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 
@@ -14,7 +14,6 @@ export default class Header extends Component {
         this.props.logout();
     };
 
-    r
     render() {
         return (
             <header className="header">
