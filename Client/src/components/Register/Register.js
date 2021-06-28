@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import "./Register.scss";
 import axios from 'axios';
 import {setToken} from '../../utils/auth';
+import {toast} from "react-toastify";
+import {Link} from "react-router-dom";
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 
@@ -43,10 +45,9 @@ class Register extends Component {
     };
 
     handleConfirmPassword = (event) => {
-        if (event.handleConfirmPassword !== event.handlePasswordInput) {
-            // button.disabled = true;
-            console.error("Oops! Your passwords do not match.")
-        }
+        event.preventDefault();
+        this.setState({confirmPassword: event.target.value});
+
     };
 
     submitForm = (event) => {
@@ -58,35 +59,34 @@ class Register extends Component {
             lastName: this.state.lastName,
             password: this.state.password
         }).then(res => {
-            const token = res.data.token;
-            setToken(token);
-            this.props.handleRegister();
+            console.log('potato');
+            console.log(res);
+            toast.info('Successfully signed up! Taking you to login');
+            this.props.history.push('/login');
         }).catch(e => {
-            // TODO: Toast notification
-            console.error('Invalid signup, try again');
+            console.error(e);
+            toast.error('Unable to sign up, please try again');
         });
     };
 
     render() {
         return(
-            <div className="register">
-                <p>Register</p>
+            <form className="register" onSubmit={this.submitForm}>
+                <h1>Register</h1>
                 <label for="username">Username:</label>
-                <input type="text" id="username" placeholder="enter your email address here" onChange={(event) => this.handleEmailInput(event)} />
-                <br></br>
+                <input type="text" id="username" placeholder="Email" onChange={(event) => this.handleEmailInput(event)} />
                 <label for="firstName">First Name:</label>
-                <input type="text" id="firstName" placeholder="enter your first name here" onChange={(event) => this.handleFirstInput(event)} />
-                <br></br>
+                <input type="text" id="firstName" placeholder="First Name" onChange={(event) => this.handleFirstInput(event)} />
                 <label for="lastName">Last Name:</label>
-                <input type="text" id="lastName" placeholder="enter your last name here" onChange={(event) => this.handleLastInput(event)} />
-                <br></br>
+                <input type="text" id="lastName" placeholder="Last Name" onChange={(event) => this.handleLastInput(event)} />
                 <label for="password">Password:</label>
-                <input type="password" id="password" placeholder="open sesame" minLength="6" onChange={(event) => this.handlePasswordInput(event)} />
-                <br></br>
+                <input type="password" id="password" placeholder="Nearly there..." minLength="6" onChange={(event) => this.handlePasswordInput(event)} />
                 <label for="confirmPassword">Confirm Password:</label>
-                <input type="password" id="confirmPassword" placeholder="nearly there" minlength="6" onChange={(event) => this.handleConfirmPassword(event)} />
-                <button disabled onClick={this.submitForm}>Submit</button>
-            </div>
+                <input type="password" id="confirmPassword" placeholder="Open sesame!" minLength="6" onChange={(event) => this.handleConfirmPassword(event)} />
+                {this.state.password && this.state.confirmPassword ? (this.state.password !== this.state.confirmPassword ? <p>Password and confirm password must match!</p> : <p>Passwords match!</p>) : null}
+                <button disabled={this.state.password !== this.state.confirmPassword} type="submit">Submit</button>
+                <p className="login-link">Got an account? <Link to="/login">Log in now</Link></p>
+            </form>
         )
     }
 
