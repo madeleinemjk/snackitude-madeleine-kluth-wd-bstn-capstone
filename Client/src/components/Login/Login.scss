@@ -1,0 +1,26 @@
+@use '../../styles/partials/breakpoints' as *;
+@use '../../styles/partials/colors' as *;
+
+.login {
+  background: $ceramic;
+  max-width: 25rem;
+  margin: 0 auto;
+  border-radius: 0.625rem;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+
+  h2 {
+    text-align: center;
+  }
+
+  input {
+    margin-bottom: 1rem;
+  }
+
+  .register-link {
+    color: $blue-violet;
+    text-align: center;
+    margin-top: 1rem;
+  }
+}

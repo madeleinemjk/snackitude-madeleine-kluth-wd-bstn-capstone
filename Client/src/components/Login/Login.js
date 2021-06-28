@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import "./Login.scss";
 import axios from 'axios';
 import {setToken} from '../../utils/auth';
+import {toast} from "react-toastify";
+import {Link} from "react-router-dom";
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 
@@ -56,18 +58,19 @@ class Login extends Component {
             setToken(token);
             this.props.handleLogin();
         }).catch(e => {
-            // TODO: Toast notification
-            console.error('Invalid login, try again');
+            toast.error('Invalid login, try again');
+            console.error(e);
         });
     };
 
     render() {
-        return <div className="login">
-            <p>Login</p>
-            <input type="text" placeholder="Enter username" onChange={this.handleUsernameChange}></input>
-            <input type="text" placeholder="Enter password" onChange={this.handlePasswordChange}></input>
-            <button onClick={this.submitForm}>Submit</button>
-        </div>
+        return <form onSubmit={this.submitForm} className="login">
+            <h2>Login</h2>
+            <input type="text" name="username" placeholder="Enter username" onChange={this.handleUsernameChange} />
+            <input type="password" name="password" placeholder="Enter password" onChange={this.handlePasswordChange} />
+            <button type="submit">Submit</button>
+            <p className="register-link">No Account? <Link to="/register">Get one now</Link></p>
+        </form>
     }
 }
 
