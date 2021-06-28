@@ -3,31 +3,43 @@
 
 .header {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     padding: 3rem 0;
     align-items: center;
+    justify-content: center;
+
+    &.logged-in {
+        justify-content: space-between;
+    }
+
+    .logo {
+        min-width: 15rem;
+        max-width: 15rem;
+
+        @include tablet-and-desktop {
+            min-width: 18.75rem;
+            max-width: 18.75rem;
+        }
+
+        img {
+            min-width: 15rem;
+            max-width: 15rem;
+            border-radius: 0.625rem;
+
+            @include tablet-and-desktop {
+                min-width: 18.75rem;
+                max-width: 18.75rem;
+            }
+        }
+    }
+
+    .links {
+        button {
+            margin-left: 1rem;
+        }
+    }
 
     @include tablet-and-desktop {
         flex-direction: row;
-    }
-}
-
-.logo {
-    min-width: 240px;
-    max-width: 240px;
-
-    @include tablet-and-desktop {
-        min-width: 300px;
-        max-width: 300px;
-    }
-
-    img {
-        min-width: 240px;
-        max-width: 240px;
-
-        @include tablet-and-desktop {
-            min-width: 300px;
-            max-width: 300px;
-        }
     }
 }

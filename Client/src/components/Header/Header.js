@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './Header.scss';
 import logo from '../../assets/logos/logo_screenshot_wix.png';
-import Login from '../Login/Login';
-import Register from '../Register/Register';
 
 export default class Header extends Component {
     constructor(props) {
@@ -16,14 +14,18 @@ export default class Header extends Component {
 
     render() {
         return (
-            <header className="header">
+            <header className={'header' + (this.props.loggedIn ? ' logged-in' : ' logged-out')}>
                 <Link to="/" className="logo">
                     <img src={logo} alt="Snackitude logo" />
                 </Link>
-                <button onClick={() => this.logout()}>Logout</button>
-                <Login />
-                <Register />
+                {this.props.loggedIn ?
+                    <div className="links">
+                        <Link to="/"><button>Search</button></Link>
+                        <Link to="/requests"><button>My Requests</button></Link>
+                        <Link to="/deliveries"><button>My Deliveries</button></Link>
+                        <button onClick={() => this.logout()}>Logout {this.props.user?.firstName}</button>
+                    </div> : null}
             </header>
-        )
+        );
     }
 }
