@@ -8,8 +8,7 @@ const passport = require('passport');
 require('../config/passport')(passport);
 const {Client} = require("@googlemaps/google-maps-services-js");
 const client = new Client({});
-// const API_KEY = 'AIzaSyBy4gPCzlxkg1_hOzj_HXz06BBbz05tdbc';
-const API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
+const API_KEY = 'AIzaSyBy4gPCzlxkg1_hOzj_HXz06BBbz05tdbc';
 
 // Get all snack requests
 router.get('/delivering', passport.authenticate('jwt', {session: false}), async (req, res) => {
@@ -85,7 +84,10 @@ router.get('/search', passport.authenticate('jwt', {session: false}), async (req
 
             const results = [].concat(distances?.data?.rows?.map(row => row?.elements))[0];
 
-            allRequests.forEach((request, index) => request.distance = results[index]?.distance?.value);
+            allRequests.forEach((request, index) => {
+                request.distance = results[index]?.distance?.value;
+                request.duration = results[index]?.duration?.value; // This is in seconds
+            });
 
             const allRequestsInRange = allRequests.filter(result => {
                 return (result.distance) < radius * 1000; // Search radius (in KM) within result distance in KM
@@ -109,10 +111,18 @@ router.put('/:snackRequestId/accept', passport.authenticate('jwt', {session: fal
     const snackRequestId = req.params.snackRequestId;
     const userId = req?.user?.dataValues?.id;
 
+    const acceptSnackRequestModel = req.body;
+
     const snackRequest = await SnackRequests.findByPk(snackRequestId);
 
     const updated = await snackRequest.update({
-        deliveringUserId: userId
+        deliveringUserId: userId,
+        fromLongitude: acceptSnackRequestModel.longitude,
+        fromLatitude: acceptSnackRequestModel.latitude,
+        fromPlaceId: acceptSnackRequestModel.placeId,
+        fromAddressName: acceptSnackRequestModel.addressName,
+        distance: acceptSnackRequestModel.distance,
+        duration: acceptSnackRequestModel.duration
     });
 
     res.send(updated);
@@ -157,6 +167,7 @@ router.post('/', passport.authenticate('jwt', {session: false}), async (req, res
                 maxWaitTime: snackRequest.maxWaitTime,
                 budget: snackRequest.budget,
                 addressName: snackRequest.addressName,
+                placeId: snackRequest.placeId,
                 requestingUserId: userId
             });
 
