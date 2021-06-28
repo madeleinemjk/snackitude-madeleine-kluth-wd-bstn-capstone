@@ -17,4 +17,6 @@ export function setToken(token) {
     return localStorage.setItem(TOKEN_NAME, token);
 }
 
-export default { TOKEN_NAME, getToken, isLoggedIn, clearToken, setToken };
+const exportedAuthFunctions = { TOKEN_NAME, getToken, isLoggedIn, clearToken, setToken };
+
+export default exportedAuthFunctions;
