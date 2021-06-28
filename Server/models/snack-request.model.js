@@ -12,7 +12,28 @@ module.exports = (sequelize, Sequelize) => {
         addressName: {
             type: Sequelize.STRING
         },
+        placeId: {
+            type: Sequelize.STRING
+        },
+        fromLongitude: {
+            type: Sequelize.FLOAT
+        },
+        fromLatitude: {
+            type: Sequelize.FLOAT
+        },
+        fromAddressName: {
+            type: Sequelize.STRING
+        },
+        fromPlaceId: {
+            type: Sequelize.STRING
+        },
         maxWaitTime: {
+            type: Sequelize.INTEGER
+        },
+        distance: { // metres
+            type: Sequelize.INTEGER
+        },
+        duration: { // seconds
             type: Sequelize.INTEGER
         },
         budget: {
