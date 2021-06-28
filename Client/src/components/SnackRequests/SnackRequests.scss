@@ -1,0 +1,33 @@
+@use '../../styles/partials/breakpoints' as *;
+@use '../../styles/partials/colors' as *;
+
+.snack-requests {
+    background: $ceramic;
+    padding: 2rem;
+    border-radius: 0.625rem;
+  
+    .address-search {
+      display: flex;
+      flex-direction: row;
+      margin-top: 1.5rem;
+      margin-bottom: 2rem;
+  
+      input {
+        min-width: 18.75rem;
+        margin-right: 1rem;
+      }
+    }
+  
+    .locations {
+      margin-bottom: 2rem;
+  
+      button {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+      }
+    }
+  
+    .requests {
+      margin-bottom: 2rem;
+    }
+  }
