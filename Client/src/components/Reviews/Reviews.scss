@@ -1,0 +1,45 @@
+@use '../../styles/partials/breakpoints' as *;
+@use '../../styles/partials/colors' as *;
+
+.reviews {
+    background: $ceramic;
+    padding: 2rem;
+    border-radius: 0.625rem;
+  
+    .review {
+      margin-bottom: 1.5rem;
+  
+      .review-text {
+        background-color: $purple-main;
+        color: $ceramic;
+        padding: 1rem 1.5rem;
+        margin-bottom: 0.5rem;
+        border-radius: 0.625rem;
+        display: inline-block;
+      }
+  
+      .review-rating {
+        font-size: 0.75rem;
+        color: $blue-violet;
+      }
+    }
+  
+    textarea {
+      width: 25rem;
+      border-radius: 0.625rem;
+      border-color: $purple-main;
+      padding: 1.5rem;
+      display: block;
+      margin-bottom: 1.5rem;
+  
+      &:focus {
+        outline: none;
+      }
+    }
+  
+    input {
+      display: block;
+      margin-top: 1rem;
+      margin-bottom: 1.5rem;
+    }
+  }

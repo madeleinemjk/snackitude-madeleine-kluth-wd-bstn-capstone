@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./Reviews.scss";
 import axios from 'axios';
 import {getToken} from "../../utils/auth";
+import {toast} from "react-toastify";
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 
@@ -9,18 +10,27 @@ const getReviewsForUser = (id) => {
     return `${API_URL}/users/${id}/reviews`;
 };
 
+const getAddReviewRoute = (id) => {
+    return `${API_URL}/users/${id}/review`;
+};
+
 class Reviews extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            reviews: null
+            reviews: null,
+            reviewText: null,
+            reviewRating: null
         };
     }
 
     componentDidMount() {
         this.checkLogin();
+        this.fetchData();
+    }
 
+    fetchData = () => {
         const userId = this.props.match.params.id;
         const token = getToken();
 
@@ -49,13 +59,52 @@ class Reviews extends Component {
         }
     };
 
+    handleReviewChange = (event) => {
+        this.setState({
+            reviewText: event.target.value
+        });
+    };
+
+    handleRatingChange = (event) => {
+        this.setState({
+            reviewRating: event.target.value
+        });
+    };
+
+    handleReviewSubmit = (event) => {
+        event.preventDefault();
+        const token = getToken();
+
+        axios.post(getAddReviewRoute(this.props.match.params.id), {
+            content: this.state.reviewText,
+            rating: this.state.reviewRating
+        }, {
+            headers: {
+                "Authorization": token
+            }
+        }).then(res => {
+            console.log(res.data);
+            toast.info('Successfully added review!');
+            this.fetchData();
+        }).catch(err => {
+            toast.error('Could not add review');
+        });
+    };
+
     render() {
         return <div className="reviews">
-            {this.state.reviews?.map(review => <div key={review.id}>
-                <p>Text: {review.content}</p>
-                <p>Rating: {review.rating}</p>
+            <h1>User Reviews</h1>
+            {this.state.reviews?.map(review => <div className="review" key={review.id}>
+                <p className="review-text">{review.content}</p>
+                <p className="review-rating">Rating: {review.rating}</p>
             </div>)}
-            // TODO: ADD CREATE REVIEW BOX HERE
+            <div className="add-review">
+                <h2>Add a review</h2>
+                <textarea name="review" id="review" placeholder="Enter review text" onChange={this.handleReviewChange} />
+                <label for="rating">Enter your rating between 0 and 5</label>
+                <input min="0" max="5" type="number" name="rating" id="rating" onChange={this.handleRatingChange} />
+                <button onClick={this.handleReviewSubmit}>Send Review</button>
+            </div>
         </div>
     }
 }
