@@ -51,10 +51,6 @@ export default class MyDeliveries extends Component {
         }
     };
 
-    viewRequest = (request) => {
-
-    };
-
     render() {
         return (
             <div className="my-deliveries">

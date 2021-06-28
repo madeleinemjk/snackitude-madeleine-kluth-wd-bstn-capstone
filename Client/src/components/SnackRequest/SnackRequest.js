@@ -7,7 +7,7 @@ import {Link} from "react-router-dom";
 import {toast} from "react-toastify";
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
-const API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
+const API_KEY = 'AIzaSyB5CRZSBEIoMAK5UmI2b1S6gWg1octs3vg';
 
 const getSnackRequestRoute = (id) => {
     return `${API_URL}/snack-requests/${id}`;

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import "./Register.scss";
 import axios from 'axios';
-import {setToken} from '../../utils/auth';
 import {toast} from "react-toastify";
 import {Link} from "react-router-dom";
 
