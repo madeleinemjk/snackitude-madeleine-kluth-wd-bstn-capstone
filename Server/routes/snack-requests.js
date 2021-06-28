@@ -8,7 +8,7 @@ const passport = require('passport');
 require('../config/passport')(passport);
 const {Client} = require("@googlemaps/google-maps-services-js");
 const client = new Client({});
-const API_KEY = 'AIzaSyB5CRZSBEIoMAK5UmI2b1S6gWg1octs3vg';
+const API_KEY = 'AIzaSyBy4gPCzlxkg1_hOzj_HXz06BBbz05tdbc';
 
 // Get all snack requests
 router.get('/delivering', passport.authenticate('jwt', {session: false}), async (req, res) => {
