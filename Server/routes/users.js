@@ -13,7 +13,7 @@ router.post('/signup', async (req, res) => {
         res.status(400).send('Please provide username and password');
     } else {
         try {
-            const user = await User
+            await User
                 .create({
                     username: req.body.username,
                     password: req.body.password,
@@ -21,7 +21,7 @@ router.post('/signup', async (req, res) => {
                     lastName: req.body.lastName
                 });
 
-            res.status(201);
+            res.status(201).send(`Created user with email ${req.body.username}`);
         } catch (e) {
             res.status(400).send(e.message || 'Unable to create user');
         }
@@ -69,7 +69,8 @@ router.get('/me', passport.authenticate('jwt', {session: false}), async(req, res
                 res.status(200).send({
                     username: user.username,
                     firstName: user.firstName,
-                    lastName: user.lastName
+                    lastName: user.lastName,
+                    id: user.id
                 });
             }
         } catch (e) {
