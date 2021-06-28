@@ -1,0 +1,8 @@
+@use '../../styles/partials/breakpoints' as *;
+@use '../../styles/partials/colors' as *;
+
+.my-deliveries {
+    background: $ceramic;
+    padding: 2rem;
+    border-radius: 0.625rem;
+  }

@@ -1,0 +1,19 @@
+@use '../../styles/partials/breakpoints' as *;
+@use '../../styles/partials/colors' as *;
+
+.my-requests {
+    background: $ceramic;
+    padding: 2rem;
+    border-radius: 0.625rem;
+  
+    .top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+  
+      h1 {
+        margin-bottom: 0;
+      }
+    }
+  }
