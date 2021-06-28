@@ -8,7 +8,10 @@
     margin: 0;
     font-size: 16px;
     font-family: 'B612';
-    background-color: $yellow-background;
+}
+
+body {
+  background-color: $yellow-background;
 }
 
 .container {
@@ -22,4 +25,39 @@
            display: flex;
        }
    }
+}
+
+.table {
+  border-radius: 0.625rem;
+  overflow: hidden;
+
+  .table-header {
+    background-color: $purple-main;
+    display: flex;
+    padding: 1rem 0;
+
+    .col {
+      font-weight: bold;
+      color: $ceramic;
+      text-align: left;
+      width: 20%;
+      padding: 0 1rem;
+    }
+  }
+
+  .table-body {
+    background-color: $ceramic;
+
+    .table-row {
+      display: flex;
+      padding: 1rem 0;
+      align-items: center;
+
+      .col {
+        color: $purple-main;
+        width: 20%;
+        padding: 0 1rem;
+      }
+    }
+  }
 }
