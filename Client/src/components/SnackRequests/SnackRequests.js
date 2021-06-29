@@ -156,8 +156,10 @@ class SnackRequests extends Component {
             <h2>Search for Snack Requests</h2>
             <p>First things first, please enter your destination address in the box below</p>
             <div className="address-search">
-                <input type="text" name="address" onChange={event => this.handleLocationSearchChange(event)} placeholder="Enter destination" />
-                <input type="number" id="radius" placeholder="Enter radius" onChange={this.handleRadiusInput} />
+                <label for="address"></label>
+                <input type="text" id="address" name="address" onChange={event => this.handleLocationSearchChange(event)} placeholder="Enter destination" />
+                <label for="radius"></label>
+                <input type="number" id="radius" name="radius" placeholder="Enter radius" onChange={this.handleRadiusInput} />
                 <button onClick={this.searchLocations}>Search</button>
             </div>
             <div className="locations">
