@@ -100,6 +100,7 @@ class Reviews extends Component {
             </div>)}
             <div className="add-review">
                 <h2>Add a review</h2>
+                <label for="review"></label>
                 <textarea name="review" id="review" placeholder="Enter review text" onChange={this.handleReviewChange} />
                 <label for="rating">Enter your rating between 0 and 5</label>
                 <input min="0" max="5" type="number" name="rating" id="rating" onChange={this.handleRatingChange} />

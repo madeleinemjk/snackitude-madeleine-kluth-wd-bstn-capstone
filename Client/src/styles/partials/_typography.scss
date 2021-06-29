@@ -63,7 +63,7 @@ input[type="text"], input[type="number"], input[type="password"] {
     opacity: 1;
 }
 
-p {
+p, label {
     font-family: 'B612';
     color: $blue-violet;
 }

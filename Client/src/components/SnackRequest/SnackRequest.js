@@ -131,6 +131,7 @@ class SnackRequest extends Component {
                     <p className="message-sender">{message?.sendingUser?.firstName}</p>
                 </div>
             }) : <p>There are no messages yet. You can send one below!</p>}
+            <label for="message"></label>
             <textarea name="message" id="message" placeholder="Enter message text" onChange={this.handleMessageChange} />
             <button onClick={this.handleMessageSubmit}>Send Message</button>
         </div>
