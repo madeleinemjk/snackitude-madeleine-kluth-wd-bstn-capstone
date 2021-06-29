@@ -21,8 +21,8 @@ Google Maps APIs: Places, Distance Matrix and Maps Embed
 
 Payment functionality - Stripe, PayPal - as MVP will use cash payments, but using a payment platform will allow easier implementation of the “transnacktion” fee.   
 User profiles and personalisation e.g. avatar, snack suggestions, saved location radius.  
-Report complaints.  
-Live chat and option to add delivery directions.  
+Report complaints. - contact email  
+Live chat and option to add delivery directions. - done with socket.io and embedded maps  
 Better authorisation - so details are anonymous until a request is accepted.  
 Public transport options.  
 Private Route component for paths once logged in.  
