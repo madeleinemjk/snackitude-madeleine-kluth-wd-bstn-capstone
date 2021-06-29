@@ -9,7 +9,7 @@ Sometimes there is simply no chance to break from meetings to pop to the shop fo
 
 ## User Profile
 
-Targeting the WfH demographic to save time, transport emissions, and wastage from impulse buying. Furthermore it could aid the sick, elderly or people otherwise limited in their capacity to travel, promoting community.  
+Targeting the WfH demographic to save time, reduce transport emissions, and minimise wastage from impulse buying. Furthermore it could aid the sick, the elderly and people otherwise limited in their capacity to travel, promoting community.  
 
 ### Tech Stack and APIs
 
