@@ -3,6 +3,8 @@ import "./SnackRequests.scss";
 import axios from 'axios';
 import {getToken} from "../../utils/auth";
 import {toast} from 'react-toastify';
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 

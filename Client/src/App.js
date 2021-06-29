@@ -14,6 +14,7 @@ import MyRequests from "./components/MyRequests/MyRequests";
 import MyDeliveries from "./components/MyDeliveries/MyDeliveries";
 import CreateRequest from "./components/CreateRequest/CreateRequest";
 import Register from "./components/Register/Register";
+import Contact from './components/Contact/Contact';
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 
@@ -95,6 +96,7 @@ class App extends React.Component {
                   <Route path='/deliveries' exact render={(routeProps) => <MyDeliveries {...routeProps} loggedIn={this.state.loggedIn} />} />
                   <Route path='/user/:id' exact render={(routeProps) => <Reviews {...routeProps} loggedIn={this.state.loggedIn} />} />
                   <Route path='/requests/:id' exact render={(routeProps) => <SnackRequest {...routeProps} user={this.state.user} loggedIn={this.state.loggedIn} />} />
+                  <Route path='/contact' component={Contact} />
                 </Switch>
                 <Footer />
             </div>

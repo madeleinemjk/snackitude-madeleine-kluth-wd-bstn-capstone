@@ -1,0 +1,18 @@
+@use '../../styles/partials/breakpoints' as *;
+@use '../../styles/partials/colors' as *;
+
+.contact {
+    margin: 1rem;
+    text-align: center;
+
+    &__body {
+        @include desktop {
+            display: flex;
+            justify-content: space-evenly;
+        }
+
+        &-item {
+            padding: 0.25rem;
+        }
+    }
+}

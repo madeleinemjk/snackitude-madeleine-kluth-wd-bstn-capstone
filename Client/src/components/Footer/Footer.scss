@@ -1,0 +1,11 @@
+@use '../../styles/partials/breakpoints' as *;
+@use '../../styles/partials/colors' as *;
+
+.footer {
+    margin: 1rem;
+    text-align: center;
+
+    @include tablet-and-desktop {
+        margin: 1rem 2rem;
+    }
+}
