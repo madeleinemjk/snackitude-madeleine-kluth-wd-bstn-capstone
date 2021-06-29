@@ -66,10 +66,8 @@ class Login extends Component {
     render() {
         return <form onSubmit={this.submitForm} className="login">
             <h2>Login</h2>
-            <label for="username"></label>
-            <input type="text" id="username" name="username" placeholder="Enter username" onChange={this.handleUsernameChange} />
-            <label for="password"></label>
-            <input type="password" id="password" name="password" placeholder="Enter password" onChange={this.handlePasswordChange} />
+            <input type="text" aria-label="Username" id="username" name="username" placeholder="Enter username" onChange={this.handleUsernameChange} />
+            <input type="password" aria-label="Password" id="password" name="password" placeholder="Enter password" onChange={this.handlePasswordChange} />
             <button type="submit">Submit</button>
             <p className="register-link">No Account? <Link to="/register">Get one now</Link></p>
         </form>

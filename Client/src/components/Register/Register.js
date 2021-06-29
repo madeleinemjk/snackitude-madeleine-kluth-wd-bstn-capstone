@@ -72,16 +72,11 @@ class Register extends Component {
         return(
             <form className="register" onSubmit={this.submitForm}>
                 <h1>Register</h1>
-                <label for="username"></label>
-                <input type="text" id="username" name="username" placeholder="Email" onChange={(event) => this.handleEmailInput(event)} />
-                <label for="firstName"></label>
-                <input type="text" id="firstName" name="firstName" placeholder="First Name" onChange={(event) => this.handleFirstInput(event)} />
-                <label for="lastName"></label>
-                <input type="text" id="lastName" name="lastName" placeholder="Last Name" onChange={(event) => this.handleLastInput(event)} />
-                <label for="password"></label>
-                <input type="password" id="password" name="password" placeholder="Password" minLength="6" onChange={(event) => this.handlePasswordInput(event)} />
-                <label for="confirmPassword"></label>
-                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" minLength="6" onChange={(event) => this.handleConfirmPassword(event)} />
+                <input aria-label="Username" type="text" id="username" name="username" placeholder="Email" onChange={(event) => this.handleEmailInput(event)} />
+                <input aria-label="First Name" type="text" id="firstName" name="firstName" placeholder="First Name" onChange={(event) => this.handleFirstInput(event)} />
+                <input aria-label="Last Name" type="text" id="lastName" name="lastName" placeholder="Last Name" onChange={(event) => this.handleLastInput(event)} />
+                <input aria-label="Password" type="password" id="password" name="password" placeholder="Password" minLength="6" onChange={(event) => this.handlePasswordInput(event)} />
+                <input aria-label="Confirm Password" type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" minLength="6" onChange={(event) => this.handleConfirmPassword(event)} />
                 {this.state.password && this.state.confirmPassword ? (this.state.password !== this.state.confirmPassword ? <p>Password and confirm password must match!</p> : <p>Passwords match!</p>) : null}
                 <button disabled={this.state.password !== this.state.confirmPassword} type="submit">Submit</button>
                 <p className="login-link">Got an account? <Link to="/login">Log in now</Link></p>

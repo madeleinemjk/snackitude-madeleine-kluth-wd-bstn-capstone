@@ -36,6 +36,10 @@ body {
     display: flex;
     padding: 1rem 0;
 
+    @include mobile {
+      display: none;
+    }
+
     .col {
       font-weight: bold;
       color: $ceramic;
@@ -53,10 +57,31 @@ body {
       padding: 1rem 0;
       align-items: center;
 
+      @include mobile {
+        flex-direction: column;
+
+        button {
+          margin-top: 1.5rem;
+        }
+      }
+
       .col {
         color: $purple-main;
         width: 20%;
         padding: 0 1rem;
+
+        @include mobile {
+          width: 100%;
+        }
+
+        .col-header {
+          display: none;
+
+          @include mobile {
+            display: inline;
+            font-weight: bold;
+          }
+        }
       }
     }
   }

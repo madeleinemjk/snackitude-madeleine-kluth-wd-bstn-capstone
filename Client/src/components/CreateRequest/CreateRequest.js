@@ -156,7 +156,7 @@ export default class CreateRequest extends Component {
                 <div className="locations">
                     <h2>Locations</h2>
                     {this.state.addresses?.length ?
-                        this.state.addresses?.map(address => <p key={address.place_id}>{address.name}, {address.formatted_address} - <button onClick={(event) => this.selectAddress(event, address)}>Choose</button></p>) :
+                        this.state.addresses?.map(address => <p key={address.place_id}>{address.name}, {address.formatted_address} - <button onClick={(event) => this.selectAddress(event, address)}>{this.state.placeId === address.place_id ? 'Selected' : 'Choose'}</button></p>) :
                         <p>Enter an address to see locations</p>
                     }
                 </div>
@@ -164,12 +164,9 @@ export default class CreateRequest extends Component {
                 <div className="snack-details">
                     <h2>Snack Details</h2>
                     <p>Enter the remaining details for your snack below</p>
-                    <label for="description"></label>
-                    <input type="text" id="description" name="description" placeholder="Enter snack description" onChange={(event) => this.handleDescriptionInput(event)} />
-                    <label for="maxWaitTime"></label>
-                    <input type="number" id="maxWaitTime" name="maxWaitTime" placeholder="Enter wait time (mins)" onChange={(event) => this.handleTimeInput(event)} />
-                    <label for="budget"></label>
-                    <input type="number" id="budget" placeholder="Enter budget (£)" onChange={(event) => this.handleBudgetInput(event)} />
+                    <input type="text" aria-label="Description" id="description" name="description" placeholder="Enter snack description" onChange={(event) => this.handleDescriptionInput(event)} />
+                    <input type="number" aria-label="Wait Time" id="maxWaitTime" name="maxWaitTime" placeholder="Enter wait time (min)" onChange={(event) => this.handleTimeInput(event)} />
+                    <input type="number" aria-label="Budget" id="budget" placeholder="Enter budget (£)" onChange={(event) => this.handleBudgetInput(event)} />
                 </div>
 
                 <p>Remember to pay your deliverer their £2 transnacktion fee!</p>

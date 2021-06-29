@@ -18,6 +18,8 @@ import Contact from './components/Contact/Contact';
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 
+console.log(process.env);
+
 const getUserRoute = () => {
   return `${API_URL}/users/me`;
 };
@@ -94,7 +96,7 @@ class App extends React.Component {
                   <Route path='/requests' exact render={(routeProps) => <MyRequests {...routeProps} loggedIn={this.state.loggedIn} />} />
                   <Route path='/create' exact render={(routeProps) => <CreateRequest {...routeProps} loggedIn={this.state.loggedIn} />} />
                   <Route path='/deliveries' exact render={(routeProps) => <MyDeliveries {...routeProps} loggedIn={this.state.loggedIn} />} />
-                  <Route path='/user/:id' exact render={(routeProps) => <Reviews {...routeProps} loggedIn={this.state.loggedIn} />} />
+                  <Route path='/user/:id' exact render={(routeProps) => <Reviews user={this.state.user} {...routeProps} loggedIn={this.state.loggedIn} />} />
                   <Route path='/requests/:id' exact render={(routeProps) => <SnackRequest {...routeProps} user={this.state.user} loggedIn={this.state.loggedIn} />} />
                   <Route path='/contact' component={Contact} />
                 </Switch>

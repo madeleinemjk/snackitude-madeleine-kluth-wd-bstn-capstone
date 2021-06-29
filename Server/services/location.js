@@ -1,7 +1,8 @@
 const {PlaceInputType} = require("@googlemaps/google-maps-services-js");
 const {Client} = require("@googlemaps/google-maps-services-js");
 const client = new Client({});
-const API_KEY = 'AIzaSyBy4gPCzlxkg1_hOzj_HXz06BBbz05tdbc';
+require('dotenv').config();
+const API_KEY = process.env.GOOGLE_API_KEY;
 
 // Find places from a string input (e.g. 47 Station Road, SG18 9PG)
 const findPlaceFromText = async (input) => {

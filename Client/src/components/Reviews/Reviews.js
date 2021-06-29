@@ -98,14 +98,18 @@ class Reviews extends Component {
                 <p className="review-text">{review.content}</p>
                 <p className="review-rating">Rating: {review.rating}</p>
             </div>)}
-            <div className="add-review">
-                <h2>Add a review</h2>
-                <label for="review"></label>
-                <textarea name="review" id="review" placeholder="Enter review text" onChange={this.handleReviewChange} />
-                <label for="rating">Enter your rating between 0 and 5</label>
-                <input min="0" max="5" type="number" name="rating" id="rating" onChange={this.handleRatingChange} />
-                <button onClick={this.handleReviewSubmit}>Send Review</button>
-            </div>
+
+            {this.props.user?.id !== parseInt(this.props.match.params.id) ?
+                <div className="add-review">
+                    <h2>Add a review</h2>
+                    <textarea aria-label="Review Text" name="review" id="review" placeholder="Enter review text"
+                            onChange={this.handleReviewChange}/>
+                    <label htmlFor="rating">Enter your rating between 0 and 5</label>
+                    <input min="0" max="5" type="number" name="rating" id="rating" onChange={this.handleRatingChange}/>
+                    <button onClick={this.handleReviewSubmit}>Send Review</button>
+                </div> :
+                <p>You cannot add reviews for yourself, sadly!</p>
+            }
         </div>
     }
 }

@@ -69,12 +69,12 @@ export default class MyRequests extends Component {
                         <div className="table-body">
                             {this.state.myRequests.map(request => {
                                 return <div className="table-row" key={request.id}>
-                                    <div className="col">{request.description}</div>
-                                    <div className="col">{request.maxWaitTime}</div>
-                                    <div className="col">{request.budget}</div>
-                                    <div className="col">{request.addressName}</div>
-                                    <div className="col">
-                                        <Link to={`/requests/${request.id}`}><button>View</button></Link>
+                                <div className="col"><span className="col-header">Description: </span>{request.description}</div>
+                                <div className="col"><span className="col-header">Max Wait Time: </span>{request.maxWaitTime} min</div>
+                                <div className="col"><span className="col-header">Budget: </span>£ {request.budget}</div>
+                                <div className="col"><span className="col-header">Address Name: </span>{request.addressName}</div>
+                                <div className="col">
+                                    <Link to={`/requests/${request.id}`}><button>View</button></Link>
                                     </div>
                                 </div>
                             })}

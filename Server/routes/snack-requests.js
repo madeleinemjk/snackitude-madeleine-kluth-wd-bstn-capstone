@@ -8,7 +8,8 @@ const passport = require('passport');
 require('../config/passport')(passport);
 const {Client} = require("@googlemaps/google-maps-services-js");
 const client = new Client({});
-const API_KEY = 'AIzaSyBy4gPCzlxkg1_hOzj_HXz06BBbz05tdbc';
+require('dotenv').config();
+const API_KEY = process.env.GOOGLE_API_KEY;
 
 // Get all snack requests
 router.get('/delivering', passport.authenticate('jwt', {session: false}), async (req, res) => {
@@ -106,6 +107,50 @@ router.get('/search', passport.authenticate('jwt', {session: false}), async (req
     }
 });
 
+// Flag that a snack request has been picked up
+router.put('/:snackRequestId/picked-up', passport.authenticate('jwt', {session: false}), async (req, res) => {
+    const snackRequestId = req.params.snackRequestId;
+    const userId = req?.user?.dataValues?.id;
+
+    const snackRequest = await SnackRequests.findByPk(snackRequestId);
+
+    // Throw an error if snack request wasn't requested by this user
+    if (snackRequest.requestingUserId !== userId) {
+        res.status(500).send('Cannot flag a snack request as picked up that you did not request');
+        return;
+    }
+
+    const updated = await snackRequest.update({
+        pickedUp: true
+    });
+
+    req.io.sockets.emit('Update', {snackRequestId: snackRequestId});
+
+    res.send(updated);
+});
+
+// Flag that a snack request has been picked up
+router.put('/:snackRequestId/paid-up', passport.authenticate('jwt', {session: false}), async (req, res) => {
+    const snackRequestId = req.params.snackRequestId;
+    const userId = req?.user?.dataValues?.id;
+
+    const snackRequest = await SnackRequests.findByPk(snackRequestId);
+
+    // Throw an error if snack request wasn't requested by this user
+    if (snackRequest.deliveringUserId !== userId) {
+        res.status(500).send('Cannot flag a snack request as paid up that you are not delivering');
+        return;
+    }
+
+    const updated = await snackRequest.update({
+        paidUp: true
+    });
+
+    req.io.sockets.emit('Update', {snackRequestId: snackRequestId});
+
+    res.send(updated);
+});
+
 // Accept the snack request with the provided id
 router.put('/:snackRequestId/accept', passport.authenticate('jwt', {session: false}), async (req, res) => {
     const snackRequestId = req.params.snackRequestId;
@@ -114,6 +159,12 @@ router.put('/:snackRequestId/accept', passport.authenticate('jwt', {session: fal
     const acceptSnackRequestModel = req.body;
 
     const snackRequest = await SnackRequests.findByPk(snackRequestId);
+
+    // Throw an error if snack request is already accepted
+    if (snackRequest.deliveringUserId) {
+        res.status(500).send('Cannot accept a snack request that is already accepted');
+        return;
+    }
 
     const updated = await snackRequest.update({
         deliveringUserId: userId,
@@ -136,6 +187,14 @@ router.post('/:snackRequestId/message', passport.authenticate('jwt', {session: f
 
     try {
         if (id && message && message.message && userId) {
+            const snackRequest = await SnackRequests.findByPk(id);
+
+            if (!(snackRequest.deliveringUserId === userId || snackRequest.requestingUserId === userId)) {
+                // This is not your snack request, can't add a message
+                res.status(500).send('You cannot add a message to this snack request as you are not associated with it');
+                return;
+            }
+
             const created = await Messages.create({
                 message: message.message,
                 timestamp: new Date(), // Use current date + time here
@@ -183,6 +242,7 @@ router.post('/', passport.authenticate('jwt', {session: false}), async (req, res
 // Get a single snack request by id, including messages
 router.get('/:id', passport.authenticate('jwt', {session: false}), async (req, res) => {
     try {
+        const userId = req?.user?.dataValues?.id;
         const id = req.params.id;
         const snackRequest = await SnackRequests.findByPk(id, {
             include: [
@@ -207,7 +267,7 @@ router.get('/:id', passport.authenticate('jwt', {session: false}), async (req, r
             ]
         });
 
-        if (snackRequest) {
+        if (snackRequest && (snackRequest.requestingUserId === userId || snackRequest.deliveringUserId === userId)) {
             res.send(snackRequest);
         } else {
             res.status(204).send(`No snack request found for id ${id}`);

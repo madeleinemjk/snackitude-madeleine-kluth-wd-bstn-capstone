@@ -3,10 +3,9 @@
 
 .header {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     margin: 1rem;
-
 
     @include tablet-and-desktop {
         display: flex;
@@ -54,7 +53,6 @@
 
         @include tablet-and-desktop {
             flex-direction: row;
-            align-items: space-around;
             flex-basis: 0;
             flex-grow: 4;
         }

@@ -15,6 +15,10 @@
       input {
         min-width: 18.75rem;
         margin-right: 1rem;
+
+        @include mobile {
+          min-width: 9rem;
+        }
       }
     }
   
@@ -32,6 +36,10 @@
         display: block;
         margin-bottom: 1.5rem;
         min-width: 18.75rem;
+
+        @include mobile {
+          min-width: 9rem;
+        }
       }
   
       p {

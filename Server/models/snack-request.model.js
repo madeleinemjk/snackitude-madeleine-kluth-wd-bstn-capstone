@@ -38,6 +38,12 @@ module.exports = (sequelize, Sequelize) => {
         },
         budget: {
             type: Sequelize.FLOAT
+        },
+        pickedUp: {
+            type: Sequelize.BOOLEAN
+        },
+        paidUp: {
+            type: Sequelize.BOOLEAN
         }
     });
 

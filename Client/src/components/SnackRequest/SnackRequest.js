@@ -7,10 +7,18 @@ import {Link} from "react-router-dom";
 import {toast} from "react-toastify";
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
-const API_KEY = 'AIzaSyBy4gPCzlxkg1_hOzj_HXz06BBbz05tdbc';
+const API_KEY = process.env.REACT_APP_GOOGLE_API_KEY;
 
 const getSnackRequestRoute = (id) => {
     return `${API_URL}/snack-requests/${id}`;
+};
+
+const getSnackRequestPickedUpRoute = (id) => {
+    return `${API_URL}/snack-requests/${id}/picked-up`;
+};
+
+const getSnackRequestPaidUpRoute = (id) => {
+    return `${API_URL}/snack-requests/${id}/paid-up`;
 };
 
 const getSnackRequestMessageRoute = (id) => {
@@ -29,6 +37,7 @@ class SnackRequest extends Component {
     }
 
     componentDidMount() {
+        console.log(process.env);
         this.checkLogin();
         this.fetchData();
 
@@ -53,10 +62,14 @@ class SnackRequest extends Component {
                 "Authorization": token
             }
         }).then(res => {
-            console.log('Got new data');
-            this.setState({
-                snackRequest: res.data
-            })
+            if (res.status === 204) {
+                toast.info('No snack request found, taking you to your requests');
+                this.props.history.push('/requests');
+            } else {
+                this.setState({
+                    snackRequest: res.data
+                })
+            }
         }).catch(err => {
             console.error(err);
         });
@@ -96,7 +109,40 @@ class SnackRequest extends Component {
             console.log(res.data);
             toast.info('Successfully added message!');
         }).catch(err => {
+            console.error(err);
             toast.error('Could not add message');
+        });
+    };
+
+    pickedUp = () => {
+        const token = getToken();
+
+        axios.put(getSnackRequestPickedUpRoute(this.state.snackRequest.id), null, {
+            headers: {
+                "Authorization": token
+            }
+        }).then(res => {
+            console.log(res.data);
+            toast.info('Successfully marked snack request as picked up');
+        }).catch(err => {
+            console.error(err);
+            toast.error('Could not mark snack request as picked up');
+        });
+    };
+
+    paidUp = () => {
+        const token = getToken();
+
+        axios.put(getSnackRequestPaidUpRoute(this.state.snackRequest.id), null, {
+            headers: {
+                "Authorization": token
+            }
+        }).then(res => {
+            console.log(res.data);
+            toast.info('Successfully marked snack request as paid up');
+        }).catch(err => {
+            console.error(err);
+            toast.error('Could not mark snack request as paid up');
         });
     };
 
@@ -107,12 +153,16 @@ class SnackRequest extends Component {
             <p>Budget: {this.state.snackRequest?.budget}</p>
             <p>Wait Time: {this.state.snackRequest?.maxWaitTime}</p>
             <p>Address: {this.state.snackRequest?.addressName}</p>
+            <p>Picked Up: {this.state.snackRequest?.pickedUp ? 'Yes': 'No'}</p>
+            <p>Paid Up: {this.state.snackRequest?.paidUp ? 'Yes': 'No'}</p>
             {this.state.snackRequest?.deliveringUser?.firstName ?
                 <p>Delivered By: <Link to={`/user/${this.state.snackRequest?.deliveringUserId}`}>{this.state.snackRequest?.deliveringUser?.firstName}</Link> - from {this.state.snackRequest.fromAddressName}</p>
                 : null}
             <p>Duration: {Math.ceil(this.state.snackRequest?.duration / 60)} min</p>
             <p>Distance: {(this.state.snackRequest?.distance / 1000)}km</p>
             <p>Requested By: <Link to={`/user/${this.state.snackRequest?.requestingUserId}`}>{this.state.snackRequest?.requestingUser?.firstName}</Link></p>
+            {!this.state.snackRequest?.paidUp && this.state.snackRequest?.deliveringUserId === this.props.user?.id ? <button onClick={this.paidUp}>Paid up!</button> : null}
+            {!this.state.snackRequest?.pickedUp && this.state.snackRequest?.requestingUserId === this.props.user?.id ? <button onClick={this.pickedUp}>Picked up!</button> : null}
             {this.props.user?.id === this.state.snackRequest?.deliveringUserId ?
                 <div className="directions">
                     <h2>Directions</h2>
@@ -131,8 +181,7 @@ class SnackRequest extends Component {
                     <p className="message-sender">{message?.sendingUser?.firstName}</p>
                 </div>
             }) : <p>There are no messages yet. You can send one below!</p>}
-            <label for="message"></label>
-            <textarea name="message" id="message" placeholder="Enter message text" onChange={this.handleMessageChange} />
+            <textarea aria-label="Message" name="message" id="message" placeholder="Enter message text" onChange={this.handleMessageChange} />
             <button onClick={this.handleMessageSubmit}>Send Message</button>
         </div>
     }

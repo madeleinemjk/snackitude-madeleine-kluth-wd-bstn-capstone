@@ -3,8 +3,6 @@ import "./SnackRequests.scss";
 import axios from 'axios';
 import {getToken} from "../../utils/auth";
 import {toast} from 'react-toastify';
-import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
-import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 
@@ -158,16 +156,14 @@ class SnackRequests extends Component {
             <h2>Search for Snack Requests</h2>
             <p>First things first, please enter your destination address in the box below</p>
             <div className="address-search">
-                <label for="address"></label>
-                <input type="text" id="address" name="address" onChange={event => this.handleLocationSearchChange(event)} placeholder="Enter destination" />
-                <label for="radius"></label>
-                <input type="number" id="radius" name="radius" placeholder="Enter radius (km)" onChange={this.handleRadiusInput} />
+                <input aria-label="Address" type="text" id="address" name="address" onChange={event => this.handleLocationSearchChange(event)} placeholder="Enter destination" />
+                <input aria-label="Radius" type="number" id="radius" name="radius" placeholder="Enter radius (km)" onChange={this.handleRadiusInput} />
                 <button onClick={this.searchLocations}>Search</button>
             </div>
             <div className="locations">
                 <h2>Locations</h2>
                 {this.state.addresses?.length ?
-                    this.state.addresses?.map(address => <p key={address.place_id}>{address.name}, {address.formatted_address} - <button onClick={() => this.selectAddress(address)}>Choose</button></p>) :
+                    this.state.addresses?.map(address => <p key={address.place_id}>{address.name}, {address.formatted_address} - <button onClick={() => this.selectAddress(address)}>{this.state.placeId === address.place_id ? 'Selected' : 'Choose'}</button></p>) :
                     <p>Enter an address to see locations</p>
                 }
             </div>
@@ -187,12 +183,12 @@ class SnackRequests extends Component {
                         <div className="table-body">
                         {this.state.requests.map(request => {
                            return <div className="table-row" key={request.id}>
-                               <div className="col">{request.description}</div>
-                               <div className="col">{(request.distance / 1000)}km</div>
-                               <div className="col">{Math.ceil(request.duration / 60)} min</div>
-                               <div className="col">{request.maxWaitTime}</div>
-                               <div className="col">{request.budget}</div>
-                               <div className="col">{request.addressName}</div>
+                               <div className="col"><span className="col-header">Description: </span>{request.description}</div>
+                               <div className="col"><span className="col-header">Distance: </span>{(request.distance / 1000)}km</div>
+                               <div className="col"><span className="col-header">Duration: </span>{Math.ceil(request.duration / 60)} min</div>
+                               <div className="col"><span className="col-header">Max Wait Time: </span>{request.maxWaitTime} min</div>
+                               <div className="col"><span className="col-header">Budget: </span>£ {request.budget}</div>
+                               <div className="col"><span className="col-header">Address Name: </span>{request.addressName}</div>
                                <div className="col">
                                    <button onClick={() => this.acceptRequest(request)}>Accept</button>
                                </div>
@@ -200,7 +196,7 @@ class SnackRequests extends Component {
                         })}
                         </div>
                     </div> :
-                    <p>Choose a location to see nearby requests</p>
+                    <p>{this.state.placeId ? 'No snack requests within the radius of your selected location' : 'Choose a location to see nearby requests'}</p>
                 }
             </div>
         </div>
