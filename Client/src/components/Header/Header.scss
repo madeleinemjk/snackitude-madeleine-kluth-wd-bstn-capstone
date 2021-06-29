@@ -26,6 +26,7 @@
         max-width: 15rem;
         border-radius: 0.625rem;
         border: 0.25rem solid $purple-main;
+        margin-right: 0.25rem;
 
         @include tablet-and-desktop {
             min-width: 18.75rem;
@@ -46,10 +47,10 @@
 
     .links {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         flex-wrap: wrap;
-        align-items: flex-end;
-        justify-content: space-between;
+        align-items: center;
+        justify-content: space-evenly;
 
         @include tablet-and-desktop {
             flex-direction: row;
