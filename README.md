@@ -34,10 +34,9 @@ Add store stock checker.
 ## How to set this up yourself!  
 
 1. Fork the repository https://docs.github.com/en/desktop/contributing-and-collaborating-using-github-desktop/adding-and-cloning-repositories/cloning-and-forking-repositories-from-github-desktop#forking-a-repository and choose "For my own purposes".  
-2. npm init   
-3. npm install  
-4. set up MySQL workbench with your password and new schema.  
-5. create your Google Maps API key to use.  
-6. set RELOAD_DB = true in your server .env to start your create your database tables, run node server.js in the Server terminal, then set it to false to keep your data.  
-7. run npm start in the Client terminal.  
-8. happy hacking!
+2. npm install  
+3. set up MySQL workbench with your password and new schema.  
+4. create your Google Maps API key to use.  
+5. set RELOAD_DB = true in your server .env to start your create your database tables, run node server.js in the Server terminal, then set it to false to keep your data.  
+6. run npm start in the Client terminal.  
+7. happy hacking!
