@@ -14,7 +14,7 @@ Targeting the WfH demographic to save time, reduce transport emissions, and mini
 ### Tech Stack and APIs
 
 HTML, SCSS, JS, Node, React, Express, Passport, Git  
-MySQL  
+MySQL with Sequelize  
 Google Maps APIs: Places, Distance Matrix and Maps Embed  
 
 ### Further Development
