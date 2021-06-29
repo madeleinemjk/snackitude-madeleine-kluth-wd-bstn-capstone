@@ -4,34 +4,41 @@
 @font-face {
     font-family: 'B612';
     src: url('../../assets/fonts/B612/B612-Regular.ttf') format('truetype');
-    color: $purple-main;
 }
 
 a {
+    font-family: 'B612';
     color: $blue-violet;
     font-weight: 700;
     text-decoration: none;
 }
 
 h1 {
+    font-family: 'B612';
     font-size: 3rem;
     margin-bottom: 2rem;
+    color: $purple-main;
 }
 
 h2 {
+    font-family: 'B612';
     font-size: 2rem;
     margin-bottom: 1.5rem;
+    color: $purple-main;
 }
 
 h3 {
+    font-family: 'B612';
     font-size: 1.5rem;
     margin-bottom: 1rem;
+    color: $purple-main;
 }
 
 button {
+    font-family: 'B612';
     color: $blue-violet;
-    border: 1px solid $yellow-select;
-    border-radius: 5px;
+    border: 0.15rem solid $yellow-select;
+    border-radius: 0.625rem;
     background: $conifer-main;
     padding: 1rem 1.5rem;
     cursor: pointer;
@@ -44,7 +51,19 @@ button {
 }
 
 input[type="text"], input[type="number"], input[type="password"] {
-    border-radius: 5px;
+    font-family: 'B612';
+    border-radius: 0.625rem;
     border: 1px solid $yellow-select;
     padding: 0.75rem 1rem;
+}
+
+::placeholder {
+    font-family: 'B612';
+    color: $conifer-main;
+    opacity: 1;
+}
+
+p {
+    font-family: 'B612';
+    color: $blue-violet;
 }

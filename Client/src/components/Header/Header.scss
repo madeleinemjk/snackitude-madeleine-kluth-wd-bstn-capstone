@@ -4,17 +4,28 @@
 .header {
     display: flex;
     flex-direction: row;
-    padding: 3rem 0;
     align-items: center;
-    justify-content: center;
+    margin: 1rem;
 
-    &.logged-in {
-        justify-content: space-between;
+
+    @include tablet-and-desktop {
+        display: flex;
+        flex-direction: row;
+        padding: 3rem 0;
+        align-items: center;
+        justify-content: center;
+        margin: 0 1rem;
+
+        &.logged-in {
+            justify-content: space-between;
+        }
     }
 
     .logo {
         min-width: 15rem;
         max-width: 15rem;
+        border-radius: 0.625rem;
+        border: 0.25rem solid $purple-main;
 
         @include tablet-and-desktop {
             min-width: 18.75rem;
@@ -34,8 +45,37 @@
     }
 
     .links {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        align-items: flex-end;
+        justify-content: space-between;
+
+        @include tablet-and-desktop {
+            flex-direction: row;
+            align-items: space-around;
+            flex-basis: 0;
+            flex-grow: 4;
+        }
+
+        @include tablet {
+            justify-content: center;
+        }
+
         button {
-            margin-left: 1rem;
+            width: fit-content;
+            margin-top: 0.5rem;
+
+            @include tablet-and-desktop {
+                margin-top: 0;
+                margin-left: 1rem;
+            }
+
+            @include tablet {
+                &:last-child {
+                    margin-top: 0.5rem
+                }
+            }
         }
     }
 
