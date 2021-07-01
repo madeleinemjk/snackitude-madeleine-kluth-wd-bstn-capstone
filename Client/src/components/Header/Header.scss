@@ -24,8 +24,9 @@
         min-width: 15rem;
         max-width: 15rem;
         border-radius: 0.625rem;
-        border: 0.25rem solid $purple-main;
+        border: 0.25rem solid $yellow-background;
         margin-right: 0.25rem;
+        background-color: $yellow-background;
 
         @include tablet-and-desktop {
             min-width: 18.75rem;
