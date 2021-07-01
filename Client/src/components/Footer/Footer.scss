@@ -4,8 +4,13 @@
 .footer {
     margin: 1rem;
     text-align: center;
+    color: $yellow-background;
 
     @include tablet-and-desktop {
         margin: 1rem 2rem;
+    }
+
+    a {
+        color: $yellow-background;
     }
 }
